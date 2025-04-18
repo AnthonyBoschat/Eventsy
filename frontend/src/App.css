@@ -40,3 +40,23 @@
 .read-the-docs {
   color: #888;
 }
+
+
+
+
+.message{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  transition: all 0.2s linear;
+  &.off{
+    opacity: 0;
+    
+  }
+
+  &.on{
+    opacity: 1;
+    transform: translate(-50%, 100%);
+  }
+}

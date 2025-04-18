@@ -9,5 +9,5 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get("/coucou", function(){
-    return response()->json("coucou");
+    return response()->json("Tout est sous contrôle Benoit, le front et le back fonctionne correctement (Ce message vient du backend)");
 });
