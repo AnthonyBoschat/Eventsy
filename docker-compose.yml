@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    volumes:
+      - ./backend:/var/www/html         # Hot‑reload PHP
+    ports: ["8000:8000"]
+    environment:
+      - APP_ENV=local
+      - DB_HOST=db
+      - DB_DATABASE=eventsy
+      - DB_USERNAME=root
+      - DB_PASSWORD=sudo
+
+  frontend:
+    build: ./frontend
+    command: sh -c "npm install && npm run dev -- --host"
+    working_dir: /app
+    volumes:
+      - ./frontend:/app                 # Hot‑reload Vite
+    ports: ["5173:5173"]
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+
+  db:
+    image: mysql:8
+    ports: ["3307:3306"]
+    environment:
+      MYSQL_ROOT_PASSWORD: sudo
+      MYSQL_DATABASE: eventsy
+    volumes:
+      - dbdata:/var/lib/mysql
+
+
+volumes:
+  dbdata:

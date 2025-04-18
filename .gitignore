@@ -1,0 +1,21 @@
+# ─── Node / React ──────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.cache/
+frontend/.env         # variables locales
+
+# ─── PHP / Laravel ─────────────────────────────
+backend/vendor/
+backend/storage/
+backend/.env          # variables locales
+backend/.phpunit.result.cache
+
+# ─── Docker artefacts ──────────────────────────
+dbdata/               # volume monté en bind (si un jour tu le montes en dossier)
+
+# ─── Éditeur / système ─────────────────────────
+.idea/
+.vscode/
+*.log
+.DS_Store
