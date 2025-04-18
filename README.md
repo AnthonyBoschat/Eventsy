@@ -23,7 +23,11 @@ docker compose run --rm backend composer install --no-dev
 docker compose run --rm backend php artisan key:generate
 
 
-
+<!-- !!!!!!!. Petit oubli de ma part au moment de générer le docker, il y a des dossiers qui sont manquant, génère les comme ça -->
+docker compose exec backend mkdir -p \
+  storage/framework/{cache/data,sessions,views} \
+  storage/logs \
+  bootstrap/cache
 
 
 
