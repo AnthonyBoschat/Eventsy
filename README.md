@@ -1,3 +1,7 @@
+<!-- Avant toute chose, assure toi que ton logiciel docker desktop est correctement lancer ( tu devrais l'avoir d'installer depuis la semaine avec docker normalement ) -->
+
+
+
 <!-- 1. Se rendre dans le projet -->
 
 cd Eventsy
