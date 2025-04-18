@@ -59,8 +59,23 @@ Back : http://localhost:8000/
 
 
 
+<!-- 9. Pour tester que tout fonctionne, rend toi sur le front, et clique sur le bouton "fetch" au centre de l'écran -->
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Désormais, une fois dans le dossier Eventsy, l'unique commande pour lancer le front et le back sera -->
 docker compose up
 <!-- Il est nécessaire de laisser ouvert ce terminal pour maintenir en vie le backend et le frontend, pour quitter -> ctrl+c -->
+
+
 
 
