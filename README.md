@@ -10,7 +10,7 @@ docker compose run --rm backend composer install --no-dev
 
 
 
-<!-- 3. Dans le dossier backend, créer un fichier nommer     .env        Et me demander ce qu'il faut rentrer dedans -->
+<!-- 3. Dans le dossier backend, créer un fichier nommer     .env        Et copier l'intégraliter de ce qu'il y a de .env.example dedans -->
 
 
 
