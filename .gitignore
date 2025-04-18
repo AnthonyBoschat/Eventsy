@@ -7,7 +7,7 @@ frontend/.env         # variables locales
 
 # ─── PHP / Laravel ─────────────────────────────
 backend/vendor/
-backend/storage/
+backend/
 backend/.env          # variables locales
 backend/.phpunit.result.cache
 
