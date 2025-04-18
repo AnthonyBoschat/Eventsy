@@ -9,5 +9,5 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get("/coucou", function(){
-    return response()->json("coucou");
+    return response()->json("hey");
 });
