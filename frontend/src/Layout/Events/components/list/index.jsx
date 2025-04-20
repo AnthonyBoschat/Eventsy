@@ -1,4 +1,4 @@
-import { format, parse } from "date-fns";
+import { format, isAfter, isBefore, parse } from "date-fns";
 import { fr } from 'date-fns/locale';
 import fake_events from "./fake";
 import "./style.scss";
@@ -13,20 +13,23 @@ export default function List(){
     const [events, setEvents] = useState(fake_events)
     const [sortedEvents, setSortedEvents] = useState([])
 
+    const parseFRDate = (date) => parse(date, "dd/MM/yyyy", new Date(), { locale: fr });
+
     useEffect(() => {
+        const now   = new Date()
         const eventsSort = events.sort((a, b) => {
-            const now   = new Date()
-            const aDate = new Date(a.date)
-            const bDate = new Date(b.date)
+            const aDate = parseFRDate(a.date)
+            const bDate = parseFRDate(b.date)
           
-            // 1) Si A à venir et B passé → A avant B
-            if (aDate >= now && bDate <  now) return -1
-            // 2) Si A passé et B à venir → B avant A
-            if (aDate <  now && bDate >= now) return  1
-            // 3) Tous les deux à venir → du plus proche au plus lointain
-            if (aDate >= now && bDate >= now) return aDate  - bDate
-            // 4) Tous les deux passés → du plus récent au plus ancien
-            return bDate - aDate
+            // 1) A futur & B passé → A avant
+            if (isAfter(aDate, now) && isBefore(bDate, now)) return -1
+            // 2) A passé & B futur → B avant
+            if (isBefore(aDate, now) && isAfter(bDate, now)) return 1
+            // 3) Tous deux futurs → plus proche → plus lointain
+            if (isAfter(aDate, now) && isAfter(bDate, now))
+                return aDate.getTime() - bDate.getTime()
+            // 4) Tous deux passés → plus récent → plus ancien
+            return bDate.getTime() - aDate.getTime()
         })
         setSortedEvents(eventsSort)
     }, [events])
@@ -34,7 +37,7 @@ export default function List(){
     
 
     const isToLateEvent = (eventDate) => {
-        return new Date(eventDate) < new Date() ? "passed" : ""
+        return isBefore(parseFRDate(eventDate), new Date()) ? "passed" : ""
     }
 
     const fullPlace = (place) => {
@@ -42,7 +45,7 @@ export default function List(){
     }
 
     const formatDate = (date) => {
-        const parsed = parse(date, "MM/dd/yyyy", new Date());
+        const parsed = parseFRDate(date)
         return format(parsed, "d MMMM yyyy", { locale: fr });
     }
 
@@ -50,7 +53,7 @@ export default function List(){
         return favorite ? "active" : ""
     }
 
-    const toggleFavorite = (eventName, index) => {
+    const toggleFavorite = (index) => {
         const newEvents = [...events]
         newEvents[index].favorite = !newEvents[index].favorite
         setEvents(newEvents)
@@ -82,7 +85,7 @@ export default function List(){
                     </div>
 
                     <div className="actions">
-                        <Heart onClick={() => toggleFavorite(event.name, index)} className={`favorite ${isFavorite(event.favorite)}`} />
+                        <Heart onClick={() => toggleFavorite(index)} className={`favorite ${isFavorite(event.favorite)}`} />
                     </div>
                 </li>
             ))}
