@@ -1,0 +1,57 @@
+@use "@Sass/constants.scss" as v;
+
+header{
+    box-shadow: 0px 1px 5px  rgba(0, 0, 0, 0.150);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-family: v.$font-logo;
+    h1{
+        margin-left: 2vw;
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: 0.2rem;
+        cursor: pointer;
+        font-size: 1;
+    }
+
+    .links{
+        display: flex;
+        margin-right: 2vw;
+        
+        li{
+            display: flex;
+            align-items: center;
+        }
+        a{
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            &::after{
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 0%;
+                opacity: 0;
+                margin-left: 5%;
+                height: 1px;
+                background-color: black;
+                transition: all 0.3s ease-in-out;
+                
+            }
+            &:hover::after{
+                opacity: 7;
+                width: 90%;
+            }
+            &.active::after{
+                opacity: 7;
+                width: 90%;
+            }
+            
+        }
+    }
+}

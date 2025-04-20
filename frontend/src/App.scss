@@ -1,0 +1,15 @@
+*{margin: 0; padding: 0;}
+ul, li, a, button {
+    all:unset;
+}
+body{
+    width: 100vw;
+    background-color: rgb(254, 251, 246);
+    height: 100vh;
+}
+
+#root{
+    display: grid;
+    grid-template-columns: 100vw;
+    grid-template-rows: 4rem calc(100vh - 4rem - 2.5rem) 2.5rem;
+}

@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "baseUrl": "./src",
+      "paths": {
+        // "@src":["./src/*"],
+        "@Components/*": ["Components/*"],
+        "@Containers/*": ["Containers/*"],
+        "@Layout/*": ["Layout/*"],
+        "@Pages/*": ["Pages/*"],
+        
+        
+        "@Constants/*": ["Physics/Constants/*"],
+        "@Redux/*": ["Physics/Redux/*"],
+        "@Sass/*": ["Physics/Sass/*"],
+        "@Services/*": ["Physics/Services/*"],
+
+      }
+    },
+    "include": ["src"]
+  }
+  

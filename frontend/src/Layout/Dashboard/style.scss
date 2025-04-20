@@ -1,0 +1,42 @@
+#dashboard_layout{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+    .container{
+        // background-color: rgba(255, 0, 0, 0.126);
+        width: 98%;
+        height: 95%;
+        display: flex;
+        flex-direction: column;
+
+
+        .actions-container{
+            display: flex;
+            width: 98%;
+            justify-content: flex-end;
+
+            .actions-button{
+                display: flex;
+                gap: 0.4rem;
+                align-items: center;
+                i{
+                    padding-bottom: 0.1rem;
+                }
+            }
+
+            .actions-menu{
+                background-color: red !important;
+            }
+        }
+    }
+
+
+    .add-event-form{
+        display: flex;
+        flex-direction: column;
+    }
+}

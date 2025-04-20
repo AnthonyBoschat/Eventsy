@@ -1,0 +1,47 @@
+@use "@Sass/constants.scss" as v;
+
+
+
+#events-layout{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    #container{
+        animation:  opacity-in 0.1s linear forwards;
+        width: 95%;
+        height: 90%;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.279);
+        background-color: rgba(255, 255, 255, 0.5);
+        display: flex;
+        flex-direction: column;
+        
+
+        .actions{
+            display: flex;
+            height: 8%;
+            gap: 1rem;
+            margin-left: 1rem;
+            // background-color: blue;
+
+            button{
+                letter-spacing: 1px;
+                font-family: v.$font-logo;
+                font-size: 0.8rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+                &:hover{
+                    cursor: pointer;
+                }
+                &.active{
+                    color:v.$primary;
+                }
+            }
+        }
+        
+        .content{
+            height: 100%;
+            margin: 1rem;
+        }
+    }
+}

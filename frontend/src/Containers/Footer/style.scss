@@ -1,0 +1,16 @@
+@use "@Sass/constants.scss" as v;
+
+footer{
+    background-color: v.$primary-dark;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+    .copyright{
+        font-family: v.$font-logo;
+        color: white;
+        font-size: 0.8rem;
+        margin-right: 1vw;
+        letter-spacing: 0.5px;
+    }
+}
