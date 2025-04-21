@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./style.scss";
-import "react-datetime/css/react-datetime.css";
 import callBackend from "@Services/callBackend";
 import { toast } from "react-toastify";
 import ENDPOINTS from "@Constants/Endpoint";
