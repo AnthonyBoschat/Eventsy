@@ -21,4 +21,21 @@ class EventController extends Controller
 
         return $event;
     }
+
+    public function toggleFavorite(Request $request) {
+       
+        $request->validate([
+            'id' => 'required|integer|min:1|exists:events,id'
+        ]);
+
+        $eventId = $request->id;
+        $event = Event::find($eventId);
+        $event->favorite = !$event->favorite;
+        $event->save();
+
+        return response()->json([
+            'success' => true
+        ]);
+
+    }
 }
