@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->date('date');
+            $table->time('time');
+            $table->string('street');
+            $table->string('city');
+            $table->integer('postal_code');
+            $table->integer('participants')->default(0);
+            $table->boolean('participation')->default(false);
+            $table->boolean('favorite')->default(false);
             $table->timestamps();
         });
     }
