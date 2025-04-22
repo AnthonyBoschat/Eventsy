@@ -13,6 +13,12 @@
         width: 50%;
         margin-top: 1rem;
         margin-left: 2rem;
+
+        &.loading{
+            input, label, .submitButton{
+                opacity: 0.5 !important;
+            }
+        }
         .section{
             display: flex;
             gap: 1rem;
@@ -64,8 +70,10 @@
 
             &.submit{
                 margin-top: 2rem;
-                input{
+                .submitButton{
                     all:unset;
+                    width: 10rem;
+                    text-align: center;
                     padding-left: 2rem;
                     padding-right: 2rem;
                     padding-top: 0.5rem;
@@ -112,5 +120,23 @@
         -webkit-appearance: none;
         -moz-appearance: none;
         letter-spacing: 2px;
+    }
+
+    .loading-icon{
+        animation: rotate 1s ease-in-out infinite;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100% {
+        transform: rotate(360deg);
+        opacity: 1;
     }
 }
