@@ -2,7 +2,9 @@ const backendURL = "http://localhost:8000/api"
 
 const ENDPOINTS = {
     EVENTS:{
-        ADD:`${backendURL}/events/add`
+        INDEX:`${backendURL}/events/index`,
+        ADD:`${backendURL}/events/add`,
+        TOGGLE_FAVORITE:`${backendURL}/events/toggleFavorite`,
     }
 }
 

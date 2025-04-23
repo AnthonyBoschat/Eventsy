@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { defaultNameReducer } from "./Slices/test";
+import { eventsReducer } from "./Slices/events";
 
 const rootReducer = combineReducers({
-    test:defaultNameReducer
+    events:eventsReducer
 });
 
 export default rootReducer

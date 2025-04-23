@@ -5,21 +5,26 @@ import "./style.scss";
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import callBackend from "@Services/callBackend";
+import ENDPOINTS from "@Constants/Endpoint";
+import { toggleEventFavorite } from "@Redux/Slices/events";
 
 
 
 export default function List(){
 
-    const [events, setEvents] = useState(fake_events)
+    const eventsList = useSelector(store => store.events.list)
     const [sortedEvents, setSortedEvents] = useState([])
+    const dispatch = useDispatch()
 
-    const parseFRDate = (date) => parse(date, "dd/MM/yyyy", new Date(), { locale: fr });
+    const parseDate = (date) => new Date(date);
 
     useEffect(() => {
         const now   = new Date()
-        const eventsSort = events.sort((a, b) => {
-            const aDate = parseFRDate(a.date)
-            const bDate = parseFRDate(b.date)
+        const eventsSort = [...eventsList].sort((a, b) => {
+            const aDate = parseDate(a.date)
+            const bDate = parseDate(b.date)
           
             // 1) A futur & B passé → A avant
             if (isAfter(aDate, now) && isBefore(bDate, now)) return -1
@@ -32,20 +37,20 @@ export default function List(){
             return bDate.getTime() - aDate.getTime()
         })
         setSortedEvents(eventsSort)
-    }, [events])
+    }, [eventsList])
 
     
 
     const isToLateEvent = (eventDate) => {
-        return isBefore(parseFRDate(eventDate), new Date()) ? "passed" : ""
+        return isBefore(parseDate(eventDate), new Date()) ? "passed" : ""
     }
 
     const fullPlace = (place) => {
-        return `${place.street}, ${place.postal_code}, ${place.city}`
+        return `${place?.street}, ${place?.postal_code}, ${place?.city}`
     }
 
     const formatDate = (date) => {
-        const parsed = parseFRDate(date)
+        const parsed = parseDate(date)
         return format(parsed, "d MMMM yyyy", { locale: fr });
     }
 
@@ -53,21 +58,25 @@ export default function List(){
         return favorite ? "active" : ""
     }
 
-    const toggleFavorite = (index) => {
-        const newEvents = [...events]
-        newEvents[index].favorite = !newEvents[index].favorite
-        setEvents(newEvents)
-        if(newEvents[index].favorite){
-            toast.success(`Ajouter aux favoris`, {icon:<Heart style={{stroke:"none", fill:"rgb(255, 114, 196)"}}/>,autoClose: 2000, hideProgressBar: true, closeOnClick: true})
-        }else{
+    const toggleFavorite = async (isFavorite, eventID) => {
+        dispatch(toggleEventFavorite(eventID))
+        if(isFavorite){
             toast.success(`Retirer des favoris`, {icon:<Heart style={{stroke:"none", fill:"rgba(236, 236, 236, 0.5)"}}/>, autoClose: 2000, hideProgressBar: true, closeOnClick: true})
+        }else{
+            toast.success(`Ajouter aux favoris`, {icon:<Heart style={{stroke:"none", fill:"rgb(255, 114, 196)"}}/>,autoClose: 2000, hideProgressBar: true, closeOnClick: true})
+        }
+        const response = await callBackend(ENDPOINTS.EVENTS.TOGGLE_FAVORITE, "POST", {id:eventID})
+        if(!response.success){
+            toast.dismiss()
+            dispatch(toggleEventFavorite(eventID))
+            toast.error(response.message)
         }
     }
 
     return(
         <ul id="events-list">
             {sortedEvents.map((event, index) => (
-                <li key={index} className={`event ${isToLateEvent(event.date)}`}>
+                <li key={event.id} className={`event ${isToLateEvent(event.date)}`}>
                     <div className="name-place">
                         <h2 className="name">{event.name}</h2>
                         <div className="place"><i className="fa-solid fa-location-dot"></i> <span>{fullPlace(event.place)}</span></div>
@@ -85,7 +94,7 @@ export default function List(){
                     </div>
 
                     <div className="actions">
-                        <Heart onClick={() => toggleFavorite(index)} className={`favorite ${isFavorite(event.favorite)}`} />
+                        <Heart onClick={() => toggleFavorite(event.favorite, event.id)} className={`favorite ${isFavorite(event.favorite)}`} />
                     </div>
                 </li>
             ))}
